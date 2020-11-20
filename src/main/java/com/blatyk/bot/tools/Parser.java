@@ -7,13 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Parser {
 
   private static final Logger log = LoggerFactory.getLogger(Parser.class);
-  private final String PREFIX_FOR_COMMAND = "/";
-  private final String DELIMITER_COMMAND_BOTNAME = "@";
-  private String botName;
+
+  private static final String PREFIX_FOR_COMMAND = "/";
+  private static final String DELIMITER_MENTION = "@";
+  private final String botName;
 
   public Parser(String botName) {
     this.botName = botName;
@@ -21,11 +23,24 @@ public class Parser {
 
   public ParsedCommand getParsedCommand(String text) {
     String trimText = "";
-    if (text != null) trimText = text.trim();
+
+    if ( Objects.nonNull(text)) {
+      trimText = text.trim();
+    }
+
     ParsedCommand result = new ParsedCommand(Command.NONE, trimText);
 
-    if ("".equals(trimText)) return result;
+    if (trimText.equals("")) {
+      return result;
+    }
+
+    if (text.contains("хах") || text.equalsIgnoreCase("лол")) {
+      result.setCommand(Command.QUOTE);
+      result.setText("");
+    }
+
     Pair<String, String> commandAndText = getDelimitedCommandFromText(trimText);
+
     if (isCommand(commandAndText.getFirst())) {
       if (isCommandForMe(commandAndText.getFirst())) {
         String commandForParse = cutCommandFromFullText(commandAndText.getFirst());
@@ -46,8 +61,8 @@ public class Parser {
   }
 
   private String cutCommandFromFullText(String text) {
-    return text.contains(DELIMITER_COMMAND_BOTNAME) ?
-        text.substring(1, text.indexOf(DELIMITER_COMMAND_BOTNAME)) :
+    return text.contains(DELIMITER_MENTION) ?
+        text.substring(1, text.indexOf(DELIMITER_MENTION)) :
         text.substring(1);
   }
 
@@ -73,8 +88,8 @@ public class Parser {
   }
 
   private boolean isCommandForMe(String command) {
-    if (command.contains(DELIMITER_COMMAND_BOTNAME)) {
-      String botNameForEqual = command.substring(command.indexOf(DELIMITER_COMMAND_BOTNAME) + 1);
+    if (command.contains(DELIMITER_MENTION)) {
+      String botNameForEqual = command.substring(command.indexOf(DELIMITER_MENTION) + 1);
       return botName.equals(botNameForEqual);
     }
     return true;

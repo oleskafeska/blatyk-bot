@@ -1,6 +1,6 @@
 package com.blatyk.bot.service;
 
-import com.blatyk.bot.data.Bot;
+import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.handler.AbstractHandler;
 import com.blatyk.bot.handler.DefaultHandler;
 import com.blatyk.bot.handler.EmojiHandler;
@@ -24,8 +24,8 @@ public class MessageReceiver implements Runnable {
 
   private static final Logger log = LoggerFactory.getLogger(MessageReceiver.class);
 
-
   private final int WAIT_FOR_NEW_MESSAGE_DELAY = 1000;
+
   private Bot bot;
   private Parser parser;
 
@@ -36,7 +36,7 @@ public class MessageReceiver implements Runnable {
 
   @Override
   public void run() {
-    log.info("[STARTED] MsgReciever.  Bot class: " + bot);
+    log.info("[STARTED] MsgReceiver. Bot class: " + bot);
     while (true) {
       for (Object object = bot.receiveQueue.poll(); object != null; object = bot.receiveQueue.poll()) {
         log.debug("New object for analyze in queue " + object.toString());
@@ -54,7 +54,7 @@ public class MessageReceiver implements Runnable {
   private void analyze(Object object) {
     if (object instanceof Update) {
       Update update = (Update) object;
-      log.debug("Update recieved: " + update.toString());
+      log.debug("Update received: " + update.toString());
       analyzeForUpdateType(update);
     } else log.warn("Cant operate type of object: " + object.toString());
   }
@@ -77,7 +77,7 @@ public class MessageReceiver implements Runnable {
     AbstractHandler handlerForCommand = getHandlerForCommand(parsedCommand.getCommand());
     String operationResult = handlerForCommand.operate(chatId.toString(), parsedCommand, update);
 
-    if (!"".equals(operationResult)) {
+    if (!operationResult.equals("")) {
       SendMessage messageOut = new SendMessage();
       messageOut.setChatId(chatId);
       messageOut.setText(operationResult);
@@ -95,7 +95,7 @@ public class MessageReceiver implements Runnable {
       case HELP:
       case ID:
       case STICKER:
-      case KEK:
+      case QUOTE:
         SystemHandler systemHandler = new SystemHandler(bot);
         log.info("Handler for command[" + command.toString() + "] is: " + systemHandler);
         return systemHandler;

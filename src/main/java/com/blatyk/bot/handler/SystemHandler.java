@@ -1,15 +1,12 @@
 package com.blatyk.bot.handler;
 
-import com.blatyk.bot.data.Bot;
+import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.tools.Command;
 import com.blatyk.bot.tools.ParsedCommand;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import static com.blatyk.bot.tools.Command.KEK;
 
 public class SystemHandler extends AbstractHandler {
 
@@ -33,28 +30,33 @@ public class SystemHandler extends AbstractHandler {
         bot.sendQueue.add(getMessageHelp(chatId));
         break;
       case ID:
-        return "Your telegramID: " + update.getMessage().getFrom().getId();
+        return "Your telegram id: " + update.getMessage().getFrom().getId();
       case STICKER:
-        return "StickerID: " + parsedCommand.getText();
-      case KEK:
+        return "Sticker id: " + parsedCommand.getText();
+      case QUOTE:
         return "Ще троха сміємося, чи йдемо деплоїти?";
     }
     return "";
   }
 
-  private SendMessage getMessageHelp(String chatID) {
+  private SendMessage getMessageHelp(String chatId) {
     SendMessage sendMessage = new SendMessage();
-    sendMessage.setChatId(chatID);
+    sendMessage.setChatId(chatId);
     sendMessage.enableMarkdown(true);
 
-    StringBuilder text = new StringBuilder();
-    text.append("*This is help message*").append(END_LINE).append(END_LINE);
-    text.append("[/start](/start) - show start message").append(END_LINE);
-    text.append("[/help](/help) - show help message").append(END_LINE);
-    text.append("[/id](/id) - know your ID in telegram ").append(END_LINE);
-    text.append("/*notify* _time-in-sec_  - receive notification from me after the specified time").append(END_LINE);
-
-    sendMessage.setText(text.toString());
+    String text =
+        "*This is help message*"
+            + END_LINE
+            + END_LINE
+            + "[/start](/start) - show start message"
+            + END_LINE
+            + "[/help](/help) - show help message"
+            + END_LINE
+            + "[/id](/id) - know your ID in telegram "
+            + END_LINE
+            + "/*notify* _time-in-sec_  - receive notification from me after the specified time"
+            + END_LINE;
+    sendMessage.setText(text);
     return sendMessage;
   }
 
@@ -62,10 +64,13 @@ public class SystemHandler extends AbstractHandler {
     SendMessage sendMessage = new SendMessage();
     sendMessage.setChatId(chatID);
     sendMessage.enableMarkdown(true);
-    StringBuilder text = new StringBuilder();
-    text.append("Hello. I'm  *").append(bot.getBotName()).append("*").append(END_LINE);
-    text.append("All that I can do - you can see calling the command [/help](/help)");
-    sendMessage.setText(text.toString());
+    String text =
+        "Hello. I'm  *"
+            + bot.getBotName()
+            + "*"
+            + END_LINE
+            + "All that I can do - you can see calling the command [/help](/help)";
+    sendMessage.setText(text);
     return sendMessage;
   }
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ParsedCommand {
-  Command command = Command.NONE;
-  String text="";
+  private Command command;
+  private String text;
 }

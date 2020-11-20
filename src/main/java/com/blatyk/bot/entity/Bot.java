@@ -1,4 +1,4 @@
-package com.blatyk.bot.data;
+package com.blatyk.bot.entity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,10 +48,9 @@ public class Bot extends TelegramLongPollingBot {
 
     log.debug("Receive new Update. updateID: " + update.getUpdateId());
     receiveQueue.add(update);
-
   }
 
-  public void botConnect() throws TelegramApiException {
+  public void botConnect() {
     TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
     try {

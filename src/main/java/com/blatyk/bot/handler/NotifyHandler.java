@@ -1,7 +1,7 @@
 package com.blatyk.bot.handler;
 
 import com.blatyk.bot.actions.Notify;
-import com.blatyk.bot.data.Bot;
+import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.tools.ParsedCommand;
 
 import org.slf4j.Logger;
@@ -12,8 +12,8 @@ public class NotifyHandler extends AbstractHandler {
 
   private static final Logger log = LoggerFactory.getLogger(NotifyHandler.class);
 
-  private final int MILLISEC_IN_SEC = 1000;
-  private String WRONG_INPUT_MESSAGE = "Wrong input. Time must be specified as an integer greater than 0";
+  private static final int MILLISEC_IN_SEC = 1000;
+  private static final String WRONG_INPUT_MESSAGE = "Wrong input. Time must be specified as an integer greater than 0";
 
   public NotifyHandler(Bot bot) {
     super(bot);

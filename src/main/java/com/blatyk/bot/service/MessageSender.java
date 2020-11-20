@@ -1,6 +1,6 @@
 package com.blatyk.bot.service;
 
-import com.blatyk.bot.data.Bot;
+import com.blatyk.bot.entity.Bot;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

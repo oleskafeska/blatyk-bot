@@ -1,6 +1,6 @@
 package com.blatyk.bot.handler;
 
-import com.blatyk.bot.data.Bot;
+import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.tools.ParsedCommand;
 import com.vdurmont.emoji.Emoji;
 import com.vdurmont.emoji.EmojiManager;
