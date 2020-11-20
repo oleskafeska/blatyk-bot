@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.blatyk.bot.tools.Command.KEK;
+
 public class SystemHandler extends AbstractHandler {
 
   private static final Logger log = LoggerFactory.getLogger(SystemHandler.class);
@@ -34,6 +36,8 @@ public class SystemHandler extends AbstractHandler {
         return "Your telegramID: " + update.getMessage().getFrom().getId();
       case STICKER:
         return "StickerID: " + parsedCommand.getText();
+      case KEK:
+        return "Ще троха сміємося, чи йдемо деплоїти?";
     }
     return "";
   }
