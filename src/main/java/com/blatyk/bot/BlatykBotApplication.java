@@ -15,7 +15,7 @@ public class BlatykBotApplication {
 
   private static final int PRIORITY_FOR_SENDER = 1;
   private static final int PRIORITY_FOR_RECEIVER = 3;
-  private static final String BOT_ADMIN = "-396367564";
+  private static final String BOT_ADMIN = "-360246826";
 
   public static void main(String[] args) {
     SpringApplication.run(BlatykBotApplication.class, args);
