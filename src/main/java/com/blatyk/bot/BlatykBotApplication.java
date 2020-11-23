@@ -3,9 +3,9 @@ package com.blatyk.bot;
 import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.service.MessageReceiver;
 import com.blatyk.bot.service.MessageSender;
+
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BlatykBotApplication {
 
@@ -22,11 +22,7 @@ public class BlatykBotApplication {
     MessageReceiver messageReceiver = new MessageReceiver(bot);
     MessageSender messageSender = new MessageSender(bot);
 
-    try {
-      bot.botConnect();
-    } catch (TelegramApiException e) {
-      e.printStackTrace();
-    }
+    bot.botConnect();
 
     Thread receiver = new Thread(messageReceiver);
     receiver.setDaemon(true);

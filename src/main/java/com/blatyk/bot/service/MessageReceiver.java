@@ -4,7 +4,6 @@ import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.handler.AbstractHandler;
 import com.blatyk.bot.handler.DefaultHandler;
 import com.blatyk.bot.handler.EmojiHandler;
-import com.blatyk.bot.handler.NotifyHandler;
 import com.blatyk.bot.handler.SystemHandler;
 import com.blatyk.bot.tools.Command;
 import com.blatyk.bot.tools.ParsedCommand;
@@ -31,7 +30,7 @@ public class MessageReceiver implements Runnable {
 
   public MessageReceiver(Bot bot) {
     this.bot = bot;
-    parser = new Parser(bot.getBotName());
+    parser = new Parser(bot.getBotUsername());
   }
 
   @Override
@@ -99,10 +98,6 @@ public class MessageReceiver implements Runnable {
         SystemHandler systemHandler = new SystemHandler(bot);
         log.info("Handler for command[" + command.toString() + "] is: " + systemHandler);
         return systemHandler;
-      case NOTIFY:
-        NotifyHandler notifyHandler = new NotifyHandler(bot);
-        log.info("Handler for command[" + command.toString() + "] is: " + notifyHandler);
-        return notifyHandler;
       case TEXT_CONTAIN_EMOJI:
         EmojiHandler emojiHandler = new EmojiHandler(bot);
         log.info("Handler for command[" + command.toString() + "] is: " + emojiHandler);

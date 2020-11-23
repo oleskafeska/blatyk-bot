@@ -3,6 +3,7 @@ package com.blatyk.bot.handler;
 import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.tools.Command;
 import com.blatyk.bot.tools.ParsedCommand;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -31,8 +32,6 @@ public class SystemHandler extends AbstractHandler {
         break;
       case ID:
         return "Your telegram id: " + update.getMessage().getFrom().getId();
-      case STICKER:
-        return "Sticker id: " + parsedCommand.getText();
       case QUOTE:
         return "Ще троха сміємося, чи йдемо деплоїти?";
     }
@@ -52,9 +51,7 @@ public class SystemHandler extends AbstractHandler {
             + END_LINE
             + "[/help](/help) - show help message"
             + END_LINE
-            + "[/id](/id) - know your ID in telegram "
-            + END_LINE
-            + "/*notify* _time-in-sec_  - receive notification from me after the specified time"
+            + "[/id](/id) - know your ID in telegram"
             + END_LINE;
     sendMessage.setText(text);
     return sendMessage;
@@ -66,7 +63,7 @@ public class SystemHandler extends AbstractHandler {
     sendMessage.enableMarkdown(true);
     String text =
         "Hello. I'm  *"
-            + bot.getBotName()
+            + bot.getBotUsername()
             + "*"
             + END_LINE
             + "All that I can do - you can see calling the command [/help](/help)";

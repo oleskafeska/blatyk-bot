@@ -9,7 +9,7 @@ public abstract class AbstractHandler {
 
   Bot bot;
 
-  AbstractHandler(Bot bot) {
+  public AbstractHandler(Bot bot) {
     this.bot = bot;
   }
 
