@@ -4,6 +4,7 @@ import com.blatyk.bot.entity.Bot;
 import com.blatyk.bot.handler.AbstractHandler;
 import com.blatyk.bot.handler.DefaultHandler;
 import com.blatyk.bot.handler.EmojiHandler;
+import com.blatyk.bot.handler.StickerHandler;
 import com.blatyk.bot.handler.SystemHandler;
 import com.blatyk.bot.tools.Command;
 import com.blatyk.bot.tools.ParsedCommand;
@@ -93,11 +94,15 @@ public class MessageReceiver implements Runnable {
       case START:
       case HELP:
       case ID:
-      case STICKER:
       case QUOTE: {
         SystemHandler systemHandler = new SystemHandler(bot);
         log.info("Handler for command [" + command.toString() + "] is: " + systemHandler);
         return systemHandler;
+      }
+      case STICKER: {
+        StickerHandler stickerHandler = new StickerHandler(bot);
+        log.info("Sticker handler triggered");
+        return stickerHandler;
       }
       case TEXT_CONTAINS_EMOJI: {
         EmojiHandler emojiHandler = new EmojiHandler(bot);
