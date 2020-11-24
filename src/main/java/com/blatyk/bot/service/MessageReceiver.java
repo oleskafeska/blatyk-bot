@@ -94,17 +94,20 @@ public class MessageReceiver implements Runnable {
       case HELP:
       case ID:
       case STICKER:
-      case QUOTE:
+      case QUOTE: {
         SystemHandler systemHandler = new SystemHandler(bot);
-        log.info("Handler for command[" + command.toString() + "] is: " + systemHandler);
+        log.info("Handler for command [" + command.toString() + "] is: " + systemHandler);
         return systemHandler;
-      case TEXT_CONTAIN_EMOJI:
+      }
+      case TEXT_CONTAINS_EMOJI: {
         EmojiHandler emojiHandler = new EmojiHandler(bot);
-        log.info("Handler for command[" + command.toString() + "] is: " + emojiHandler);
+        log.info("Handler for command [" + command.toString() + "] is: " + emojiHandler);
         return emojiHandler;
-      default:
-        log.info("Handler for command[" + command.toString() + "] not Set. Return DefaultHandler");
+      }
+      default: {
+        log.info("Handler for command [" + command.toString() + "] not Set. Return DefaultHandler");
         return new DefaultHandler(bot);
+      }
     }
   }
 }

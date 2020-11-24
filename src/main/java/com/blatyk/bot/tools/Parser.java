@@ -34,7 +34,7 @@ public class Parser {
       return result;
     }
 
-    if (text.contains("хах") || text.equalsIgnoreCase("лол")) {
+    if (text.contains("хах") || text.toLowerCase().contains("лол")) {
       result.setCommand(Command.QUOTE);
       result.setText("");
     }
@@ -48,14 +48,14 @@ public class Parser {
         result.setText(commandAndText.getSecond());
         result.setCommand(commandFromText);
       } else {
-        result.setCommand(Command.NOTFORME);
+        result.setCommand(Command.NOT_FOR_ME);
         result.setText(commandAndText.getSecond());
       }
 
     }
     if (result.getCommand() == Command.NONE) {
       List<String> emojiContainsInText = EmojiParser.extractEmojis(result.getText());
-      if (emojiContainsInText.size() > 0) result.setCommand(Command.TEXT_CONTAIN_EMOJI);
+      if (emojiContainsInText.size() > 0) result.setCommand(Command.TEXT_CONTAINS_EMOJI);
     }
     return result;
   }

@@ -30,6 +30,9 @@ public class SystemHandler extends AbstractHandler {
       case HELP:
         bot.sendQueue.add(getMessageHelp(chatId));
         break;
+      case STICKER: {
+        return "Ойой, шо то за стікери такі ти шлеш " + update.getMessage().getFrom().getUserName();
+      }
       case ID:
         return "Your telegram id: " + update.getMessage().getFrom().getId();
       case QUOTE:

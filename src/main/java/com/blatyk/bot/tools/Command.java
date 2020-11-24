@@ -1,10 +1,8 @@
 package com.blatyk.bot.tools;
 
 public enum Command {
-  NONE, NOTFORME,
-
-  NOTIFY,
+  NONE, NOT_FOR_ME,
   START, HELP, ID,
-  TEXT_CONTAIN_EMOJI,
-  STICKER, KEK, QUOTE
+  TEXT_CONTAINS_EMOJI,
+  STICKER, QUOTE
 }
