@@ -36,12 +36,11 @@ public class MessageReceiver implements Runnable {
 
   @Override
   public void run() {
-    log.info("[STARTED] MsgReceiver. Bot class: " + bot);
+    log.info("Message receiver has started. Bot : " + bot);
     while (true) {
-      for (Object object = bot.receiveQueue.poll(); object != null; object = bot.receiveQueue.poll()) {
-        log.debug("New object for analyze in queue " + object.toString());
-        analyze(object);
-      }
+
+      processReceiveQueue();
+
       try {
         Thread.sleep(WAIT_FOR_NEW_MESSAGE_DELAY);
       } catch (InterruptedException e) {
@@ -51,16 +50,30 @@ public class MessageReceiver implements Runnable {
     }
   }
 
-  private void analyze(Object object) {
+  private void processReceiveQueue() {
+    Object object;
+
+    while ((object = bot.receiveQueue.poll()) != null) {
+      log.debug("New object for analyze in queue " + object.toString());
+      analyzeReceiveMessage(object);
+    }
+  }
+
+  private void analyzeReceiveMessage(Object object) {
+
     if (object instanceof Update) {
       Update update = (Update) object;
       log.debug("Update received: " + update.toString());
-      analyzeForUpdateType(update);
-    } else log.warn("Cant operate type of object: " + object.toString());
+      checkUpdateType(update);
+    } else {
+      log.warn("Cant operate type of object: " + object.toString());
+    }
   }
 
-  private void analyzeForUpdateType(Update update) {
+  private void checkUpdateType(Update update) {
+
     Message message = update.getMessage();
+
     Long chatId = message.getChatId();
 
     ParsedCommand parsedCommand = new ParsedCommand(Command.NONE, "");
@@ -75,6 +88,7 @@ public class MessageReceiver implements Runnable {
     }
 
     AbstractHandler handlerForCommand = getHandlerForCommand(parsedCommand.getCommand());
+
     String operationResult = handlerForCommand.operate(chatId.toString(), parsedCommand, update);
 
     if (!operationResult.equals("")) {
@@ -93,7 +107,6 @@ public class MessageReceiver implements Runnable {
     switch (command) {
       case START:
       case HELP:
-      case ID:
       case QUOTE: {
         SystemHandler systemHandler = new SystemHandler(bot);
         log.info("Handler for command [" + command.toString() + "] is: " + systemHandler);

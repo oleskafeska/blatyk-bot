@@ -10,8 +10,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import lombok.Data;
-
 public class Bot extends TelegramLongPollingBot {
 
   private static final Logger log = LoggerFactory.getLogger(Bot.class);
