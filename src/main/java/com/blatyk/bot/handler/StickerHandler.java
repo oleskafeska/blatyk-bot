@@ -18,13 +18,6 @@ public class StickerHandler extends AbstractHandler {
   @Override
   public String operate(String chatId, ParsedCommand parsedCommand, Update update) {
 
-    if (Objects.nonNull(update.getMessage().getSticker())) {
-
-     if (update.getMessage().getSticker().getFileId().equals(RIY_STICKER_FILE_ID)) {
-        return "Та шо ви мені тут Рійчика шлете";
-      }
-      return "";
-    }
-    return "";
+    return "Стікери якісь тут шлете...Йдіть працюйте";
   }
 }
