@@ -24,7 +24,7 @@ public class MessageSender implements Runnable {
   @Override
   public void run() {
 
-    log.info("[STARTED] MsgSender.  Bot class: " + bot);
+    log.info("[STARTED] message Sender.  Bot class: " + bot);
     try {
       while (true) {
         for (Object object = bot.sendQueue.poll(); object != null; object = bot.sendQueue.poll()) {
