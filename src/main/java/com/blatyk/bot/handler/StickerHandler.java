@@ -18,6 +18,6 @@ public class StickerHandler extends AbstractHandler {
   @Override
   public String operate(String chatId, ParsedCommand parsedCommand, Update update) {
 
-    return "Стікери якісь тут шлете...Йдіть працюйте";
+    return "Стікери якісь тут шлете...Йдіть працюйте!";
   }
 }
